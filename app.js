@@ -1,67 +1,57 @@
-// DOM Elements
+// GET DOM ELEMENT: STUDENT FORM
+
 const studentForm = document.getElementById("studentForm");
-const studentsContainer = document.querySelector(".students");
-const nameInput = studentForm["name"];
-const ageInput = studentForm["age"];
-const rollInput = studentForm["roll"];
+const studentContainer = document.querySelector(".students");
+const nameInput = studentForm['name'];
+const ageInput = studentForm['age'];
+const numberInput = studentForm['number'];
 
-/* 
-{
-  name: '',
-  age: number,
-  roll: number
-}
-*/
+const students = JSON.parse(localStorage.getItem('students')) || [];
 
-const students = JSON.parse(localStorage.getItem("students")) || [];
-
-const addStudent = (name, age, roll) => {
+const addStudent = (name, age, number) => {
   students.push({
-    name,
-    age,
-    roll,
-  });
+    name: name,
+    age: age,
+    number:number
+  })
 
-  localStorage.setItem("students", JSON.stringify(students));
+  localStorage.setItem('students', JSON.stringify(students));
 
-  return { name, age, roll };
+  return {name, age, number}
 };
 
-const createStudentElement = ({ name, age, roll }) => {
-  // Create elements
-  const studentDiv = document.createElement("div");
-  const studentName = document.createElement("h2");
-  const studentAge = document.createElement("p");
-  const studentRoll = document.createElement("p");
+const createStudentElement = ({name, age, number}) => {
+  // Create elements for each student
+  const studentDiv = document.createElement('div'); 
+  const studentName = document.createElement('h2');
+  const studentAge = document.createElement('p');
+  const studentNumber = document.createElement('p');
 
   // Fill the content
-  studentName.innerText = "Student name: " + name;
-  studentAge.innerText = "Student age: " + age;
-  studentRoll.innerText = "Student roll: " + roll;
+  studentName.innerText = 'Student Name: ' + name;
+  studentAge.innerText = 'Student Age: ' + age;
+  studentNumber.innerText = 'Student Number: ' + number;
 
   // Add to the DOM
-  studentDiv.append(studentName, studentAge, studentRoll);
-  studentsContainer.appendChild(studentDiv);
-
-  studentsContainer.style.display = students.length === 0 ? "none" : "flex";
+  studentDiv.append(studentName, studentAge, studentNumber);
+  studentContainer.appendChild(studentDiv);
 };
-
-studentsContainer.style.display = students.length === 0 ? "none" : "flex";
 
 students.forEach(createStudentElement);
 
-studentForm.onsubmit = e => {
+studentForm.onsubmit = (e) => {
   e.preventDefault();
 
-  const newStudent = addStudent(
+  const newStudent =  addStudent(
     nameInput.value,
     ageInput.value,
-    rollInput.value
+    numberInput.value
   );
 
-  createStudentElement(newStudent);
+  createStudentElement(newStudent)
 
-  nameInput.value = "";
-  ageInput.value = "";
-  rollInput.value = "";
-};
+  nameInput.value = '';
+  ageInput.value = '';
+  numberInput.value = '';
+
+}
