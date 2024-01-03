@@ -1,6 +1,6 @@
 # Learn localStorage in JavaScript by building a project!
 
-[Design Preview](./images/Screenshot%202024-01-03%20101505.png)
+![Design Preview](./images/Screenshot%202024-01-03%20101505.png)
 
 Store student name, age and number in local storage.
 
